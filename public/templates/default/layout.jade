@@ -1,0 +1,44 @@
+doctype html
+html(lang="en")
+    head
+        title asdasdasd
+
+        link(href="http://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,cyrillic", rel="stylesheet", type="text/css")
+
+        link(rel="stylesheet/less", type="text/css", href="less/bootstrap.less")
+        script(src="js/less-1.7.4.min.js", type="text/javascript")
+
+        script.
+            localStorage.clear();
+    body
+
+        header#header
+            a.logo(href="#") Live-Engine
+            ul
+                li
+                    a#sign-in.icon-login(href="#", title="Войти") Войти
+                li
+                    a#sign-up(href="#sign-up", title="Зарегистрироваться") Зарегистрироваться
+            form#sign
+                label#sign-email
+                    input#sign-email-input(name="email", type="email", placeholder="Email", tabindex="1")
+                label#sign-password
+                    input#sign-password-input(name="password", type="password", placeholder="Пароль", tabindex="2")
+                    a#sign-password-toggle.icon-eye(href="#toggle-password")
+                label#sign-rules Я прочитал (прочитала) <a href="#">правила</a> и согласен (согласна) с ними.
+                    input#sign-rules-input(name="rules", type="checkbox", tabindex="3")
+                div#sign-buttons
+                    input.disable#sign-buttons-submit(name="submit", type="submit", value="Зарегистрироваться", tabindex="4")
+                    input#sign-buttons-reset(name="reset", type="reset", value="Отмена", tabindex="5")
+
+        #banner
+
+        h1 Jade - node template engine
+        p.
+            Jade is a terse and simple
+            templating language with a
+            strong focus on performance
+            and powerful features.
+
+
+        script(data-main="js/app/bootstrap", src="js/lib/requirejs/requirejs-2.1.14.min.js")

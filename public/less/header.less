@@ -1,0 +1,85 @@
+header {
+    padding: 10px 40px;
+    border-bottom: 4px solid #1f578e;
+	box-shadow: 0 0 6px 0 rgba(31, 87, 142, 0.8);
+	position: relative;
+
+    .logo {
+        color: #000;
+        font-size: 26px;
+        line-height: 36px;
+    }
+
+    ul {
+        color: #353535;
+        float: right;
+        font-size: 16px;
+        height: 36px;
+
+        li {
+            float: right;
+            margin: ((36px - 22px) / 2) 0 ((36px - 22px) / 2) 31px;
+            position: relative;
+
+            &:before {
+                content: '';
+                display: block;
+                width: 1px;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: -16px;
+                background-color: #353535;
+                opacity: 0.5;
+            }
+
+            &:last-child {
+
+                &:before {
+                    display: none;
+                }
+
+            }
+
+			> a {
+				display: block;
+				line-height: 22px;
+				position: relative;
+
+				&:hover,
+				&.selected {
+
+					&:after {
+						content: '';
+						display: block;
+						position: absolute;
+						left: 0;
+						right: 0;
+						bottom: 2px;
+						border-bottom: dotted 1px;
+					}
+
+				}
+
+			}
+			
+        }
+
+    }
+
+}
+
+
+#sign-in {
+	margin-left: 24px;
+
+	&:before {
+		display: block;
+		position: absolute;
+		width: 22px;
+		line-height: 22px;
+		text-align: center;
+		left: -24px;
+	}
+
+}

@@ -1,0 +1,30 @@
+{
+    "dir" : {
+        "protected" : "protected",
+        "components": "components"
+    },
+
+    "template" : {
+        "engine": "jade",
+        "dir"   : "public/templates",
+        "theme" : "default"
+    },
+
+    "component" : {
+        "main" : "main.js"
+    },
+
+    "db" : {
+        "username"  : "",
+        "password"  : "",
+        "hosts"     : [
+            "localhost:27017"
+        ],
+        "database"  : "live-engine",
+        "options"   : ""
+    },
+
+	"socket" : {
+		"port" : "8888"
+	}
+}

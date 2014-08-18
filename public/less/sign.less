@@ -1,0 +1,224 @@
+#sign {
+    width: 318px;
+    padding: 20px;
+	background-color: #fff;
+	position: absolute;
+	right: 20px;
+	top: 80px;
+	border: solid 2px #1f578e;
+	box-shadow: 0 0 5px 0 rgba(31, 87, 142, 0.6);
+
+    label[data-message] {
+        position: relative;
+
+        &:after {
+            content: attr(data-message);
+            display: block;
+            line-height: 20px;
+            font-size: 12px;
+        }
+
+    }
+
+    label,
+    #sign-buttons {
+        cursor: pointer;
+        display: block;
+        margin-top: 20px;
+        position: relative;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &.success {
+
+            input[type="text"],
+            input[type="email"],
+            input[type="password"] {
+                border-color: #11B978;
+            }
+
+        }
+
+        &.error {
+
+            input[type="text"],
+            input[type="email"],
+            input[type="password"] {
+                border-color: #F7474F;
+            }
+
+        }
+
+    }
+
+	input[type="submit"] {
+		cursor: pointer;
+		display: block;
+		background-color: #17508a;
+		border: none;
+		color: #f2f2f2;
+		height: 34px;
+		padding: 0 10px;
+		margin: 0;
+		font-size: 16px;
+
+        &.disable {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+	}
+
+	input[type="reset"] {
+		display: block;
+		border: none;
+		padding: 0;
+		color: #000;
+		line-height: 14px;
+		margin: 10px 0 10px 20px;
+		background-color: transparent;
+		position: relative;
+		border-bottom: dashed 1px #000;
+		cursor: pointer;
+	}
+	
+}
+
+#sign-buttons {
+	height: 34px;
+	
+	* > {
+		float: left;
+	}
+
+}
+
+#sign-rules {
+    border: dashed 1px #cad0d7;
+    border-radius: 4px;
+    padding: 4px 4px 4px 36px;
+    font-size: 11px;
+    line-height: 14px;
+
+    input[type="checkbox"] {
+        display: block;
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        height: 28px;
+        width: 28px;
+
+        &:before,
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-radius: 2px;
+        }
+
+        &:before {
+            border: solid 1px #cad0d7;
+            background-color: #fff;
+        }
+
+        &:after {
+            display: none;
+        }
+
+        &:checked {
+
+            &:after {
+                display: block;
+                background-color: #000;
+                top: 4px;
+                left: 4px;
+                bottom: 4px;
+                right: 4px;
+            }
+
+        }
+
+    }
+
+    a {
+        text-decoration: underline;
+    }
+
+}
+
+#sign-password {
+    position: relative;
+
+    #sign-password-input {
+        padding-right: 35px;
+    }
+
+    #sign-password-toggle {
+        display: block;
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        width: 26px;
+        height: 26px;
+        border-left: solid 1px #cad0d7;
+        background-color: #fff;
+        line-height: 26px;
+        text-align: center;
+    }
+
+}
+
+/*
+#sign-login {
+
+    input[name="login"] {
+        padding-right: 62px;
+    }
+
+    input[type="radio"] {
+        position: absolute;
+        display: block;
+        width: 27px;
+        height: 26px;
+        top: 1px;
+        right: 1px;
+        cursor: pointer;
+
+        &:before {
+            color: #cad0d7;
+            font-size: 18px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: block;
+            background-color: #fff;
+            line-height: 26px;
+            width: 26px;
+            text-align: center;
+            border-left: solid 1px #cad0d7;
+        }
+
+        &.icon-male {
+            right: 28px;
+        }
+
+        &:checked {
+
+            &:before {
+                color: #000;
+            }
+
+        }
+
+    }
+
+}
+*/
