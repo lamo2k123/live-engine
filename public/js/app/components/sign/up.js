@@ -1,57 +1,88 @@
 define([
     'lang',
-	'backbone',
-	'io'
+	'backbone'
 ], function(
     Lang,
-	Backbone,
-	io
+	Backbone
 ) {
 
 	var Main = Backbone.View.extend({
-		el : $('#sign'),
-		io : null,
+		io      : null,
+        query   : false,
+        email   : false,
+        password: false,
+        rules   : false,
 
 		events: {
-			"click #sign-buttons-submit"    : "eventSubmit",
-            'click #sign-buttons-reset'     : 'eventButtonReset',
-            'click #sign-password-toggle'   : 'eventPasswordToggle',
-            'keyup #sign-email-input'       : 'eventSignEmailInput',
-            'keyup #sign-password-input'    : 'eventSignPasswordInput'
+			"click #sign-up-buttons-submit"    : "eventSubmit",
+            'click #sign-up-buttons-reset'     : 'eventButtonReset',
+            'click #sign-up-password-toggle'   : 'eventPasswordToggle',
+            'keyup #sign-up-email-input'       : 'eventSignEmailInput',
+            'keyup #sign-up-password-input'    : 'eventSignPasswordInput',
+            'change #sign-up-rules-input'      : 'eventSignRulesInput'
 		},
 
-		initialize: function() {
-			this.io = io.connect('http://localhost:3000/users', {
-			 	transports : ['websocket']
-			});
+		initialize: function(options) {
+            this.io = options.io;
 
-			this.io.on('connect', function () {
-			 console.log(arguments);
-			 //			chat.emit('hi!');
-			 });
+            Backbone.Events.on('sign-up:toggle', this.beSignToggle.bind(this));
 
+            this.io.on('sign-up', this.ioSignUp.bind(this));
 
 		},
+
+        ioSignUp : function() {
+
+            // @TODO: ???
+            this.query = false;
+        },
+
+        beSignToggle : function(bStatus) {
+
+            if(bStatus === undefined) {
+                this.$el.toggleClass('show');
+            } else {
+                if(bStatus) {
+                    this.$el.addClass('show');
+                } else {
+                    this.$el.removeClass('show');
+                }
+            }
+
+            return this;
+        },
 
         eventSubmit : function(e) {
             e && e.preventDefault();
 
-            if(this.email && this.password) {
-                this.io.emit('sign-up', {
-                    login 	: login,
-                    email 	: email,
-                    password: password
-                });
+            if(!this.query && this.rules && this.email && this.password) {
+                var $email      = this.$el.find('#sign-up-email-input'),
+                    $password   = this.$el.find('#sign-up-password-input'),
+                    $rules      = this.$el.find('#sign-up-rules-input');
+
+                $email.prop('readonly', true);
+                $password.prop('readonly', true);
+                $rules.prop('disabled', true);
+
+                if($email.val() && $password.val()) {
+                    this.query = true;
+
+                    this.io.emit('sign-up', {
+                        email 	: $email.val(),
+                        password: $password.val()
+                    });
+                }
+
             }
 
             return this;
         },
 
         eventButtonReset : function() {
-            var $button     = this.$el.find('#sign-password-toggle'),
-                $type       = this.$el.find('#sign-password-input'),
-                $email      = this.$el.find('#sign-email'),
-                $password   = this.$el.find('#sign-password');
+            var $button     = this.$el.find('#sign-up-password-toggle'),
+                $type       = this.$el.find('#sign-up-password-input'),
+                $email      = this.$el.find('#sign-up-email'),
+                $password   = this.$el.find('#sign-up-password');
 
             if($button) {
                 $button
@@ -85,13 +116,17 @@ define([
 
             this.signButtonSubmitStatus();
 
+            Backbone.Events
+                .trigger('sign-up:toggle', false)
+                .trigger('header:sign-up', false);
+
             return this;
         },
 
         eventPasswordToggle : function(e) {
             e && e.preventDefault();
 
-            var $type = this.$el.find('#sign-password-input');
+            var $type = this.$el.find('#sign-up-password-input');
 
             if(e.currentTarget) {
                 $(e.currentTarget)
@@ -112,7 +147,7 @@ define([
 
         eventSignEmailInput : function(e) {
             var value   = $(e.currentTarget).val(),
-                $email  = this.$el.find('#sign-email'),
+                $email  = this.$el.find('#sign-up-email'),
                 validate= /^[\wа-яА-ЯёЁ\.\-\_]+@[\wа-яА-ЯёЁ\.\-\_]+\.[\wа-яА-ЯёЁ\.\-\_]+$/gm;
 
             if(value.length && validate.test(value)) {
@@ -147,7 +182,7 @@ define([
 
         eventSignPasswordInput : function(e) {
             var value       = $(e.currentTarget).val(),
-                $password   = this.$el.find('#sign-password');
+                $password   = this.$el.find('#sign-up-password');
 
             if(value.length) {
                 $password
@@ -170,11 +205,21 @@ define([
             return this;
         },
 
+        eventSignRulesInput : function(e) {
+            var $rules = $(e.currentTarget);
+
+            this.rules = $rules[0].checked;
+
+            this.signButtonSubmitStatus();
+
+            return this;
+        },
+
         signButtonSubmitStatus : function() {
-            var $button = this.$el.find('#sign-buttons-submit');
+            var $button = this.$el.find('#sign-up-buttons-submit');
 
             if($button) {
-                if(this.password && this.email) {
+                if(this.rules && this.password && this.email) {
                     $button.removeClass('disable');
                 } else {
                     $button.addClass('disable');

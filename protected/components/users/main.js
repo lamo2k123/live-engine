@@ -11,7 +11,6 @@ module.exports = function(app) {
 			.of('/users')
 			.on('connection', function(socket) {
 				socket.on('sign-up', this.signUp.bind(this, socket));
-//			socket.emit('news', { news: 'item' });
 			}.bind(this));
 
 
@@ -39,7 +38,11 @@ module.exports = function(app) {
 				status 	: true,
 				email 	: user.email
 			});
-		}
+		} else {
+            socket.emit('sign-up', {
+                status : false
+            });
+        }
 
 		return this;
 	};

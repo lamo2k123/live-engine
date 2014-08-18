@@ -16,20 +16,31 @@ html(lang="en")
             a.logo(href="#") Live-Engine
             ul
                 li
-                    a#sign-in.icon-login(href="#", title="Войти") Войти
+                    a#sign-in-button.icon-login(href="#", title="Войти") Войти
                 li
-                    a#sign-up(href="#sign-up", title="Зарегистрироваться") Зарегистрироваться
-            form#sign
-                label#sign-email
-                    input#sign-email-input(name="email", type="email", placeholder="Email", tabindex="1")
-                label#sign-password
-                    input#sign-password-input(name="password", type="password", placeholder="Пароль", tabindex="2")
-                    a#sign-password-toggle.icon-eye(href="#toggle-password")
-                label#sign-rules Я прочитал (прочитала) <a href="#">правила</a> и согласен (согласна) с ними.
-                    input#sign-rules-input(name="rules", type="checkbox", tabindex="3")
-                div#sign-buttons
-                    input.disable#sign-buttons-submit(name="submit", type="submit", value="Зарегистрироваться", tabindex="4")
-                    input#sign-buttons-reset(name="reset", type="reset", value="Отмена", tabindex="5")
+                    a#sign-up-button(href="#sign-up", title="Зарегистрироваться") Зарегистрироваться
+
+            form#sign-up
+                label#sign-up-email
+                    input#sign-up-email-input(name="email", type="email", placeholder="Email", tabindex="1")
+                label#sign-up-password
+                    input#sign-up-password-input(name="password", type="password", placeholder="Пароль", tabindex="2")
+                    a#sign-up-password-toggle.icon-eye(href="#toggle-password")
+                label#sign-up-rules Я прочитал (прочитала) <a href="#">правила</a> и согласен (согласна) с ними.
+                    input#sign-up-rules-input(name="rules", type="checkbox", tabindex="3")
+                div#sign-up-buttons
+                    input.disable#sign-up-buttons-submit(name="submit", type="submit", value="Зарегистрироваться", tabindex="4")
+                    input#sign-up-buttons-reset(name="reset", type="reset", value="Отмена", tabindex="5")
+
+            form#sign-in
+                label#sign-in-email
+                    input#sign-in-email-input(name="email", type="email", placeholder="Email", tabindex="1")
+                label#sign-in-password
+                    input#sign-in-password-input(name="password", type="password", placeholder="Пароль", tabindex="2")
+                    a#sign-in-password-toggle.icon-eye(href="#toggle-password")
+                div#sign-in-buttons
+                    input.disable#sign-in-buttons-submit(name="submit", type="submit", value="Войти", tabindex="4")
+                    input#sign-in-buttons-reset(name="reset", type="reset", value="Отмена", tabindex="5")
 
         #banner
 

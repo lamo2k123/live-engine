@@ -6,8 +6,7 @@ module.exports = function(mongoose) {
 		login	: {
 			type	: String,
 			min 	: 3,
-			max 	: 40,
-			unique	: true
+			max 	: 40
 		},
 		email   : {
 			type	: String,
@@ -36,7 +35,6 @@ module.exports = function(mongoose) {
 
 	User.pre('save', function(next) {
 		this.password = crypto.createHash('sha1').update(this.password).digest('hex');
-		console.log(this);
 		next && next()
 	});
 

@@ -1,12 +1,19 @@
-#sign {
+#sign-up,
+#sign-in {
     width: 318px;
     padding: 20px;
 	background-color: #fff;
 	position: absolute;
-	right: 20px;
-	top: 80px;
+    right: 110%;
+    top: 80px;
 	border: solid 2px #1f578e;
 	box-shadow: 0 0 5px 0 rgba(31, 87, 142, 0.6);
+
+    transition: all 600ms cubic-bezier(0.680, -0.550, 0.265, 1.550);
+
+    &.show {
+        right: 20px;
+    }
 
     label[data-message] {
         position: relative;
@@ -21,7 +28,8 @@
     }
 
     label,
-    #sign-buttons {
+    #sign-up-buttons,
+    #sign-in-buttons {
         cursor: pointer;
         display: block;
         margin-top: 20px;
@@ -86,7 +94,8 @@
 	
 }
 
-#sign-buttons {
+#sign-up-buttons,
+#sign-in-buttons {
 	height: 34px;
 	
 	* > {
@@ -95,7 +104,7 @@
 
 }
 
-#sign-rules {
+#sign-up-rules {
     border: dashed 1px #cad0d7;
     border-radius: 4px;
     padding: 4px 4px 4px 36px;
@@ -152,14 +161,17 @@
 
 }
 
-#sign-password {
+#sign-up-password,
+#sign-in-password {
     position: relative;
 
-    #sign-password-input {
+    #sign-up-password-input,
+    #sign-in-password-input {
         padding-right: 35px;
     }
 
-    #sign-password-toggle {
+    #sign-up-password-toggle,
+    #sign-in-password-toggle {
         display: block;
         position: absolute;
         top: 1px;
@@ -173,52 +185,3 @@
     }
 
 }
-
-/*
-#sign-login {
-
-    input[name="login"] {
-        padding-right: 62px;
-    }
-
-    input[type="radio"] {
-        position: absolute;
-        display: block;
-        width: 27px;
-        height: 26px;
-        top: 1px;
-        right: 1px;
-        cursor: pointer;
-
-        &:before {
-            color: #cad0d7;
-            font-size: 18px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: block;
-            background-color: #fff;
-            line-height: 26px;
-            width: 26px;
-            text-align: center;
-            border-left: solid 1px #cad0d7;
-        }
-
-        &.icon-male {
-            right: 28px;
-        }
-
-        &:checked {
-
-            &:before {
-                color: #000;
-            }
-
-        }
-
-    }
-
-}
-*/

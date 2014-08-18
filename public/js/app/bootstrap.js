@@ -2,6 +2,7 @@ require.config({
 	baseUrl: 'js',
 	paths: {
         domReady    : 'lib/requirejs/domReady',
+        i18n        : 'lib/requirejs/i18n',
 
 		jquery		: 'lib/jquery/jquery-2.1.1.min',
 		underscore	: 'lib/lodash/lodash.underscore.min',
@@ -12,14 +13,14 @@ require.config({
 		router	: 'app/router'*/
 	},
 	deps : [
-		'app/components/users/main',
+		'app/components/sign/main',
 		'app/components/header/main',
-		'app/components/overlay/main'
+//		'app/components/overlay/main'
 	],
-	callback : function(Users, Header, Overlay) {
+	callback : function(Sign, Header, Overlay) {
 		new Header();
-		new Overlay();
-		new Users();
+//		new Overlay();
+		new Sign();
 
 	}
 });
