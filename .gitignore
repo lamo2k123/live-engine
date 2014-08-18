@@ -1,0 +1,4 @@
+*.wxtask
+*.wxproj
+.idea
+node_modules
