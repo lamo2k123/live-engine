@@ -1,6 +1,8 @@
 require.config({
 	baseUrl: 'js',
 	paths: {
+        domReady    : 'lib/requirejs/domReady',
+
 		jquery		: 'lib/jquery/jquery-2.1.1.min',
 		underscore	: 'lib/lodash/lodash.underscore.min',
 		io 			: 'lib/socket.io/socket.io-1.0.6',
