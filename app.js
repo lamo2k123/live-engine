@@ -1,5 +1,5 @@
 var express = require('express'),
-	session	= require('express-session'),
+    session = require('express-session'),
     app     = express();
 
 app.set('dirname', __dirname);
@@ -11,10 +11,11 @@ app.set('require', {
     'path'          : require('path'),
     'body-parser'   : require('body-parser'),
 	'cookie-parser' : require('cookie-parser'),
+	'cookie'        : require('cookie'),
     'mongoose'      : require('mongoose'),
-	'passport'		: require('passport'),
 	'io'			: require('socket.io').listen(app.get('config').socket.port)
 });
+
 
 app.set('views', app.get('require')['path'].join(app.get('dirname'), app.get('config').template.dir, app.get('config').template.theme));
 app.set('view engine', app.get('config').template.engine);
@@ -28,19 +29,12 @@ app.get('require').mongoose.connect('mongodb://' + app.get('config').db.hosts.jo
 app.use(app.get('require')['body-parser'].urlencoded({extended : false}));
 app.use(app.get('require')['body-parser'].json());
 app.use(app.get('require')['cookie-parser']());
-app.use(session({
-	secret: 'SECRET',
-	resave: true,
-	saveUninitialized: true
-}));
-
-app.use(app.get('require')['passport'].initialize());
-app.use(app.get('require')['passport'].session());
+app.use(session(app.get('config').session));
 
 
 
+app.set('components-manager', require('./protected/engine/components-manager.js')(app));
 
-require('./protected/engine/components-manager.js')(app);
 
 
 app.listen(8080);

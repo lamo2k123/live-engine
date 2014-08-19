@@ -1,8 +1,6 @@
 define([
-    'lang',
 	'backbone'
 ], function(
-    Lang,
 	Backbone
 ) {
 
@@ -29,7 +27,18 @@ define([
 
             this.io.on('sign-up', this.ioSignUp.bind(this));
 
+            this.model.on('change:auth', this.observeAuth.bind(this));
 		},
+
+        observeAuth : function() {
+            if(this.model.get('auth')) {
+                this.remove();
+            } else {
+                this.render();
+            }
+
+            return this;
+        },
 
         ioSignUp : function() {
 
@@ -118,7 +127,7 @@ define([
 
             Backbone.Events
                 .trigger('sign-up:toggle', false)
-                .trigger('header:sign-up', false);
+                .trigger('user:user-bar:sign-up', false);
 
             return this;
         },
@@ -188,14 +197,14 @@ define([
                 $password
                     .removeClass('error')
                     .addClass('success')
-                    .attr('data-message', Lang[['SIGN_PASSWORD_STRENGTH_LEVEL', this._checkPasswordStrength(value)].join('_')]);
+                    .attr('data-message', 'SIGN_PASSWORD_STRENGTH_LEVEL' + this._checkPasswordStrength(value));
 
                 this.password = true;
             } else {
                 $password
                     .removeClass('success')
                     .addClass('error')
-                    .attr('data-message', Lang['SIGN_PASSWORD_ENTER']);
+                    .attr('data-message', 'SIGN_PASSWORD_ENTER');
 
                 this.password = false;
             }

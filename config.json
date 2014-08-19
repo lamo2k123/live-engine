@@ -24,6 +24,16 @@
         "options"   : ""
     },
 
+    "session" : {
+        "name"              : "live-engine.sid",
+        "secret"            : "p8I56n1vJLUTkjfU8cdU",
+        "resave"            : true,
+        "saveUninitialized" : true,
+        "cookie" : {
+            "secure" : false
+        }
+    },
+
 	"socket" : {
 		"port" : "8888"
 	}

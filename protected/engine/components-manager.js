@@ -1,17 +1,14 @@
-var fs  = require('fs'),
-    path= require('path');
-
 module.exports = function(app){
 
     var ComponentsManager = function() {
-        this.dir = path.join(app.get('dirname'), app.get('config').dir.protected, app.get('config').dir.components);
+        this.dir = app.get('require')['path'].join(app.get('dirname'), app.get('config').dir.protected, app.get('config').dir.components);
         this.components = {};
 
         this.loaded();
     };
 
     ComponentsManager.prototype.loaded = function(){
-        fs.readdir(this.dir, this._readdir.bind(this));
+        app.get('require')['fs'].readdir(this.dir, this._readdir.bind(this));
 
         return this;
     };
@@ -19,8 +16,8 @@ module.exports = function(app){
     ComponentsManager.prototype._readdir = function(error, files) {
         if(!error) {
             for(var i in files) {
-                var dir = path.join(this.dir, files[i]);
-                fs.stat(dir, this._stat.bind(this, dir));
+                var dir = app.get('require')['path'].join(this.dir, files[i]);
+                app.get('require')['fs'].stat(dir, this._stat.bind(this, dir));
             }
         } else {
             console.log('_readdir', error);
@@ -32,8 +29,8 @@ module.exports = function(app){
     ComponentsManager.prototype._stat = function(dir, error, stat) {
         if(!error) {
             if(stat.isDirectory()) {
-                var main = path.join(dir, app.get('config').component.main);
-                fs.exists(main, this._exists.bind(this, main));
+                var main = app.get('require')['path'].join(dir, app.get('config').component.main);
+                app.get('require')['fs'].exists(main, this._exists.bind(this, main));
             }
         } else {
             console.log('_stat', error);
@@ -59,5 +56,5 @@ module.exports = function(app){
         return false;
     };
 
-    new ComponentsManager(app)
+    return new ComponentsManager(app)
 };

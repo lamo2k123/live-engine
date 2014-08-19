@@ -1,8 +1,6 @@
 define([
-    'lang',
 	'backbone'
 ], function(
-    Lang,
 	Backbone
 ) {
 
@@ -27,11 +25,26 @@ define([
 
             this.io.on('sign-in', this.ioSignIn.bind(this));
 
+
+            this.model.on('change:auth', this.observeAuth.bind(this));
+
 		},
 
-        ioSignIn : function() {
+        observeAuth : function() {
+            if(this.model.get('auth')) {
+                this.remove();
+            } else {
+                this.render();
+            }
 
-            // @TODO: ???
+            return this;
+        },
+
+        ioSignIn : function(bStatus, oData) {
+            if(bStatus && oData) {
+
+            }
+
             this.query = false;
         },
 
@@ -63,10 +76,7 @@ define([
                 if($email.val() && $password.val()) {
                     this.query = true;
 
-                    this.io.emit('sign-in', {
-                        email 	: $email.val(),
-                        password: $password.val()
-                    });
+                    this.io.emit('sign-in', $email.val(), $password.val());
                 }
 
             }
@@ -114,7 +124,7 @@ define([
 
             Backbone.Events
                 .trigger('sign-in:toggle', false)
-                .trigger('header:sign-in', false);
+                .trigger('user:user-bar:sign-in', false);
 
             return this;
         },
@@ -185,7 +195,7 @@ define([
                 $password
                     .removeClass('success')
                     .addClass('error')
-                    .attr('data-message', Lang['SIGN_PASSWORD_ENTER']);
+                    .attr('data-message', 'SIGN_PASSWORD_ENTER');
 
                 this.password = false;
             }
