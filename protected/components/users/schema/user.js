@@ -26,10 +26,13 @@ module.exports = function(mongoose) {
 			},
 			last : Date
 		},
-		banned 	: Boolean,
+		banned 	: {
+			type 	: Boolean,
+			default : false
+		},
+		avatar 	: String,
 
-		group   : Number,
-        avatar 	: String
+		group   : Number
 
     });
 

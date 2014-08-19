@@ -1,17 +1,20 @@
 var express = require('express'),
-    session = require('express-session'),
     app     = express();
+
+app.set('configs', {
+	cookie : require('./configs/cookie.json')
+});
 
 app.set('dirname', __dirname);
 app.set('config', require('./config.json'));
+
+
 
 
 app.set('require', {
     'fs'            : require('fs'),
     'path'          : require('path'),
     'body-parser'   : require('body-parser'),
-	'cookie-parser' : require('cookie-parser'),
-	'cookie'        : require('cookie'),
     'mongoose'      : require('mongoose'),
 	'io'			: require('socket.io').listen(app.get('config').socket.port)
 });
@@ -26,10 +29,11 @@ app.get('require').mongoose.connect('mongodb://' + app.get('config').db.hosts.jo
     pass : app.get('config').db.password
 });
 
+app.use(require('./protected/modules/cookies/index.js').use);
+app.use(require('./protected/modules/sessions/index.js').use);
+
 app.use(app.get('require')['body-parser'].urlencoded({extended : false}));
 app.use(app.get('require')['body-parser'].json());
-app.use(app.get('require')['cookie-parser']());
-app.use(session(app.get('config').session));
 
 
 

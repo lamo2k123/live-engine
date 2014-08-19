@@ -1,8 +1,6 @@
-//var LocalStrategy  = require('passport-local').Strategy;
-var crypto = require('crypto');
+var Sessions = require('../../modules/sessions/index.js');
 
 module.exports = function(app) {
-    var Sessions = app.get('components-manager').getApi('Sessions');
 
 	require('./schema/user.js')(app.get('require').mongoose);
 
@@ -12,23 +10,9 @@ module.exports = function(app) {
 		app.get('require').io
 			.of('/users')
 			.on('connection', function(socket) {
-                console.log(app.get('require')['cookie'].parse(socket.handshake.headers.cookie));
-				socket.on('sign-up', this.signUp.bind(this, socket));
+                socket.on('sign-up', this.signUp.bind(this, socket));
 				socket.on('sign-in', this.signIn.bind(this, socket));
-//			socket.emit('news', { news: 'item' });
 			}.bind(this));
-/*
-        app.get('require')['passport'].use(new LocalStrategy(
-            function(username, password, done) {
-                this.User.findOne({ username: username }, function (err, user) {
-                    if (err) { return done(err); }
-                    if (!user) { return done(null, false); }
-                    if (!user.verifyPassword(password)) { return done(null, false); }
-                    return done(null, user);
-                });
-            }.bind(this)
-        ));*/
-
 
 		return {
 			name: 'users',
@@ -55,10 +39,16 @@ module.exports = function(app) {
                 password: crypto.createHash('sha1').update(password).digest('hex')
             }, function(error, user) {
                 if(!error) {
-                    Sessions.add(socket.id, {
-                        email : user.email
+					var sid = app.get('require')['cookie-parser'].signedCookie(socket.handshake.headers.cookie);
+
+					Sessions.add(sid, {
+						socket 	: socket.id,
+                        email 	: user.email,
+						date	: user.date,
+						banned	: user.banned,
+						avatar	: user.avatar || 'http://www.gravatar.com/avatar/' + crypto.createHash('md5').update(user.email).digest('hex')
                     });
-                    socket.emit('sign-in', true, Sessions.get(socket.id));
+                    socket.emit('sign-in', true, Sessions.get(sid));
                 } else {
                     socket.emit('sign-in', false);
                 }
