@@ -1,0 +1,9 @@
+{
+    "username"  : "",
+    "password"  : "",
+    "hosts"     : [
+        "localhost:27017"
+    ],
+    "database"  : "live-engine",
+    "options"   : ""
+}

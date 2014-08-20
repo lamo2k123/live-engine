@@ -1,14 +1,15 @@
-var Sessions = require('../../modules/sessions/index.js');
+require('./schema/user.js');
 
-module.exports = function(app) {
+var crypto  = require('crypto'),
+    mongoose= require('mongoose');
 
-	require('./schema/user.js')(app.get('require').mongoose);
+module.exports = function(app, engine) {
 
 	var Users = function() {
-		this.User = app.get('require').mongoose.model('user');
+		this.User = mongoose.model('user');
 
-		app.get('require').io
-			.of('/users')
+        engine.io
+			.channel('/users')
 			.on('connection', function(socket) {
                 socket.on('sign-up', this.signUp.bind(this, socket));
 				socket.on('sign-in', this.signIn.bind(this, socket));
@@ -17,7 +18,7 @@ module.exports = function(app) {
 		return {
 			name: 'users',
 			api	: {
-
+                isAuth : engine.manager.sessions.has.bind(engine.manager.sessions)
 			}
 		};
 	};
@@ -39,16 +40,19 @@ module.exports = function(app) {
                 password: crypto.createHash('sha1').update(password).digest('hex')
             }, function(error, user) {
                 if(!error) {
-					var sid = app.get('require')['cookie-parser'].signedCookie(socket.handshake.headers.cookie);
+					var sid = socket.cookies['live-engine.sid'];
 
-					Sessions.add(sid, {
-						socket 	: socket.id,
-                        email 	: user.email,
-						date	: user.date,
-						banned	: user.banned,
-						avatar	: user.avatar || 'http://www.gravatar.com/avatar/' + crypto.createHash('md5').update(user.email).digest('hex')
-                    });
-                    socket.emit('sign-in', true, Sessions.get(sid));
+                    if(!engine.manager.sessions.has(sid)) {
+                        engine.manager.sessions.add(sid, {
+                            socket 	: socket.id,
+                            email 	: user.email,
+                            date	: user.date,
+                            banned	: user.banned,
+                            avatar	: user.avatar || 'http://www.gravatar.com/avatar/' + crypto.createHash('md5').update(user.email.trim().toLowerCase()).digest('hex') + '?r=pg'
+                        });
+                        socket.emit('sign-in', true, engine.manager.sessions.get(sid));
+                    }
+
                 } else {
                     socket.emit('sign-in', false);
                 }

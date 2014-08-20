@@ -89,8 +89,9 @@ define([
         render : function() {
 
             var template = _.template(TemplateUserBar, {
-                auth : this.model.get('auth'),
-                email: this.model.get('email')
+                avatar  : this.model.get('avatar'),
+                auth    : this.model.get('auth'),
+                email   : this.model.get('email')
             });
 
             this.$el.html(template);

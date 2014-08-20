@@ -1,0 +1,5 @@
+{
+    "engine": "jade",
+    "dir"   : "public/templates",
+    "theme" : "default"
+}

@@ -1,43 +1,32 @@
+var path        = require('path'),
+    mongoose    = require('mongoose'),
+    bodyParser  = require('body-parser'),
+    engine      = require('./protected/engine');
+
 var express = require('express'),
     app     = express();
 
-app.set('configs', {
-	cookie : require('./configs/cookie.json')
-});
 
 app.set('dirname', __dirname);
-app.set('config', require('./config.json'));
+
+app.set('views', path.join(engine.manager.configs.get('template').dir, engine.manager.configs.get('template').theme));
+app.set('view engine', engine.manager.configs.get('template').engine);
 
 
-
-
-app.set('require', {
-    'fs'            : require('fs'),
-    'path'          : require('path'),
-    'body-parser'   : require('body-parser'),
-    'mongoose'      : require('mongoose'),
-	'io'			: require('socket.io').listen(app.get('config').socket.port)
+mongoose.connect('mongodb://' + engine.manager.configs.get('db').hosts.join(',') + '/' + engine.manager.configs.get('db').database, {
+    user : engine.manager.configs.get('db').username,
+    pass : engine.manager.configs.get('db').password
 });
 
 
-app.set('views', app.get('require')['path'].join(app.get('dirname'), app.get('config').template.dir, app.get('config').template.theme));
-app.set('view engine', app.get('config').template.engine);
+app.use(engine.manager.modules.get('cookies').use);
+app.use(engine.manager.modules.get('sessions').use);
+app.use(bodyParser.urlencoded({extended : false}));
+app.use(bodyParser.json());
 
-
-app.get('require').mongoose.connect('mongodb://' + app.get('config').db.hosts.join(',') + '/' + app.get('config').db.database, {
-    user : app.get('config').db.username,
-    pass : app.get('config').db.password
-});
-
-app.use(require('./protected/modules/cookies/index.js').use);
-app.use(require('./protected/modules/sessions/index.js').use);
-
-app.use(app.get('require')['body-parser'].urlencoded({extended : false}));
-app.use(app.get('require')['body-parser'].json());
-
-
-
-app.set('components-manager', require('./protected/engine/components-manager.js')(app));
+engine.manager.components.get('layout', app, engine);
+engine.manager.components.get('news', app, engine);
+engine.manager.components.get('users', app, engine);
 
 
 

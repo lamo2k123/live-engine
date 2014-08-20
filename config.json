@@ -4,37 +4,8 @@
         "components": "components"
     },
 
-    "template" : {
-        "engine": "jade",
-        "dir"   : "public/templates",
-        "theme" : "default"
-    },
-
     "component" : {
         "main" : "main.js"
-    },
+    }
 
-    "db" : {
-        "username"  : "",
-        "password"  : "",
-        "hosts"     : [
-            "localhost:27017"
-        ],
-        "database"  : "live-engine",
-        "options"   : ""
-    },
-
-    "session" : {
-        "name"              : "live-engine.sid",
-        "secret"            : "p8I56n1vJLUTkjfU8cdU",
-        "resave"            : true,
-        "saveUninitialized" : true,
-        "cookie" : {
-            "secure" : false
-        }
-    },
-
-	"socket" : {
-		"port" : "8888"
-	}
 }

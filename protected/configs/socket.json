@@ -1,0 +1,5 @@
+{
+    "path"      : "/socket.io",
+    "origins"   : "*:*",
+    "port"      : "8888"
+}
