@@ -1,3 +1,13 @@
+var engine = require('./protected/engine');
+
+engine.manager.routes.get('/test', function(req, res, next) {
+//	console.log(res);
+	res.render('index.html', {test: '123'});
+});
+
+engine.server.start(8080);
+
+/*
 var path        = require('path'),
     mongoose    = require('mongoose'),
     bodyParser  = require('body-parser'),
@@ -32,3 +42,4 @@ engine.manager.components.get('users', app, engine);
 
 app.listen(8080);
 console.log('Magic happens on port 8080');
+*/

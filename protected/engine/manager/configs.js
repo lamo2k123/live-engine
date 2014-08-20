@@ -1,13 +1,13 @@
 var fs  = require('fs'),
     path= require('path');
 
-var Configs = function(manager) {
+var Configs = function(engine) {
     if(!(this instanceof Configs)) {
-        return new Configs(manager);
+        return new Configs(engine);
     }
 
-    this.manager = manager;
-    this.configs = {
+	this.engine = engine;
+	this.configs = {
         length : 0
     };
 
