@@ -1,0 +1,7 @@
+{
+    "dir"   : "templates",
+    "theme" : "default",
+    "layout": "layout",
+    "ext"   : ".html",
+    "cache" : false
+}
