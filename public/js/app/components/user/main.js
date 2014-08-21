@@ -13,7 +13,7 @@ define([
 ) {
 
 	var Main = function() {
-        this.io = io.connect('http://localhost:3000/users', {
+        this.io = io.connect('http://localhost:3000/', {
             transports : ['websocket']
         });
 

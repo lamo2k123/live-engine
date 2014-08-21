@@ -22,14 +22,10 @@ Render.prototype._use = function() {
         root    : dir,
         layout  : config.layout,
         viewExt : config.ext,
-        cache   : config.cache/*,
-        helpers: {
-            sitename: 'connect-render demo site',
-            starttime: new Date().getTime(),
-            now: function (req, res) {
-                return new Date();
-            }
-        }*/
+        cache   : config.cache,
+        helpers : {
+            user : this.engine.component.user.isAuthorization(req.cookies[engine.manager.configs.get('cookie').name])
+        }
     }));
 };
 

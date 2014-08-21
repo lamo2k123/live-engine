@@ -1,5 +1,6 @@
 var path    = require('path'),
     connect = require('connect'),
+    mongoose= require('mongoose'),
     io      = require('socket.io');
 
 var Engine = function(app, io) {
@@ -17,6 +18,15 @@ var Engine = function(app, io) {
 		sessions: require('./manager/sessions.js')(this)
 	};
 
+    mongoose.connect('mongodb://' + this.manager.configs.get('db').hosts.join(',') + '/' + this.manager.configs.get('db').database, {
+        user : this.manager.configs.get('db').username,
+        pass : this.manager.configs.get('db').password
+    });
+
+    this.component = {
+        user : require('./../components/users/main.js')(this)
+    };
+
     this.modules = {
         cookie  : require('./modules/cookie-parser.js')(this),
         session : require('./modules/session.js')(this),
@@ -26,8 +36,9 @@ var Engine = function(app, io) {
 	return {
         get : this.get.bind(this),
         set : this.set.bind(this),
-
+        app: this.app,
 		manager : this.manager,
+        component : this.component,
 		server : {
 			start : this.start.bind(this)
 		}
