@@ -1,0 +1,18 @@
+<ul id="user-bar">
+    <% if(locals.auth) { %>
+        <li>
+            <a id="sign-out-button" href="#sign-out-button" title="Выйти" class="icon-logout">Выйти</a>
+        </li>
+        <li class="user">
+            <img src="<%= avatar %>">
+            <%= email %>
+        </li>
+    <% } else { %>
+        <li>
+            <a id="sign-in-button" href="#sign-in-button" title="Войти" class="icon-login">Войти</a>
+        </li>
+        <li>
+            <a id="sign-up-button" href="#sign-up-button" title="Зарегистрироваться">Зарегистрироваться</a>
+        </li>
+    <% } %>
+</ul>

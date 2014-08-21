@@ -1,20 +1,20 @@
-
-var Sessions = function(manager) {
+var Sessions = function(engine) {
     if(!(this instanceof Sessions)) {
-        return new Sessions(manager);
+        return new Sessions(engine);
     }
 
-    this.manager = manager;
-    this.unique = 0;
+    this.engine = engine;
     this.store = {
         length : 0
     };
 
     return {
-        get : this.get.bind(this),
-        add : this.add.bind(this),
-        has : this.has.bind(this)
-    }
+        get     : this.get.bind(this),
+        add     : this.add.bind(this),
+        has     : this.has.bind(this),
+        remove  : this.remove.bind(this)
+    };
+
 };
 
 Sessions.prototype.get = function(sid) {

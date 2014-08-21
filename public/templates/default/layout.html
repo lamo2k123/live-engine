@@ -8,11 +8,13 @@
     <script>localStorage.clear();</script>
 </head>
 <body>
-<header id="header"><a href="#" class="logo">Live-Engine</a>
-    <ul id="user-bar">
-        <li><a id="sign-in-button" href="#sign-in-button" title="Войти" class="icon-login">Войти</a></li>
-        <li><a id="sign-up-button" href="#sign-up-button" title="Зарегистрироваться">Зарегистрироваться</a></li>
-    </ul>
+    <%- body %>
+
+<header id="header">
+    <a href="#" class="logo">Live-Engine</a>
+
+    <%- partial('user/bar') %>
+
     <form id="sign-up">
         <label id="sign-up-email">
             <input id="sign-up-email-input" name="email" type="email" placeholder="Email" tabindex="1">

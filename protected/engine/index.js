@@ -13,7 +13,8 @@ var Engine = function(app, io) {
 
 	this.manager = {
 		configs	: require('./manager/configs.js')(this),
-		routes 	: require('./manager/routes.js')(this)
+		routes 	: require('./manager/routes.js')(this),
+		sessions: require('./manager/sessions.js')(this)
 	};
 
     this.modules = {
