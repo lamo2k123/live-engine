@@ -16,7 +16,8 @@ var Render = function(engine) {
 Render.prototype._use = function() {
     this.engine.app.use(render({
         root: './public/templates/default',
-        layout: 'layout.html',
+        layout: 'layout',
+        viewExt : '.html',
         cache: true, // `false` for debug
         helpers: {
             sitename: 'connect-render demo site',

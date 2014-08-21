@@ -2,7 +2,7 @@ var engine = require('./protected/engine');
 
 engine.manager.routes.get('/test', function(req, res, next) {
 //	console.log(res);
-	res.render('index.html', {test: '123'});
+	res.render('index', {test: '123'});
 });
 
 engine.server.start();
