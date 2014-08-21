@@ -1,30 +1,28 @@
 var connect = require('connect'),
-	render	= require('connect-render');
+    io      = require('socket.io');
 
-console.log(render);
+var Engine = function(app, io) {
+    this.storage = {};
 
-var Engine = function(app) {
 	this.app = app;
+    this.io = io;
 
-	this.app.use(render({
-		root: './public/templates/default',
-		layout: 'layout.html',
-		cache: true, // `false` for debug
-		helpers: {
-			sitename: 'connect-render demo site',
-			starttime: new Date().getTime(),
-			now: function (req, res) {
-				return new Date();
-			}
-		}
-	}));
 
 	this.manager = {
 		configs	: require('./manager/configs.js')(this),
 		routes 	: require('./manager/routes.js')(this)
 	};
 
+    this.modules = {
+        cookie  : require('./modules/cookie-parser.js')(this),
+        session : require('./modules/session.js')(this),
+        render  : require('./modules/render.js')(this)
+    };
+
 	return {
+        get : this.get.bind(this),
+        set : this.set.bind(this),
+
 		manager : this.manager,
 		server : {
 			start : this.start.bind(this)
@@ -32,11 +30,26 @@ var Engine = function(app) {
 	};
 };
 
-Engine.prototype.start = function(port) {
-	this.app.listen(port);
+Engine.prototype.get = function(key) {
+    if(key && this.storage[key]) {
+        return this.storage[key];
+    }
 };
 
-module.exports = new Engine(connect());
+Engine.prototype.set = function(key, data) {
+    if(key && data && !this.storage[key]) {
+        this.storage[key] = data;
+    }
+
+    return this;
+};
+
+Engine.prototype.start = function() {
+	this.app.listen(this.manager.configs.get('server').port);
+    this.io.listen(this.manager.configs.get('socket').port)
+};
+
+module.exports = new Engine(connect(), io);
 
 /*
 var Manager = require('./manager');

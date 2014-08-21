@@ -5,7 +5,7 @@ engine.manager.routes.get('/test', function(req, res, next) {
 	res.render('index.html', {test: '123'});
 });
 
-engine.server.start(8080);
+engine.server.start();
 
 /*
 var path        = require('path'),

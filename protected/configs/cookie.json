@@ -1,8 +1,11 @@
 {
-	"maxAge"	: null,
-	"domain"	: null,
-	"path"		: null,
-	"expires"	: null,
-	"httpOnly" 	: true,
-	"secure" 	: false
+    "name"      : "live-engine.sid",
+    "options"   : {
+        "maxAge"	: null,
+        "domain"	: null,
+        "path"		: null,
+        "expires"	: null,
+        "httpOnly" 	: true,
+        "secure" 	: false
+    }
 }

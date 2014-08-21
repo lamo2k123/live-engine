@@ -45,7 +45,7 @@ Configs.prototype.get = function(name) {
         }
     }
 
-    return false;
+    return {};
 };
 
 

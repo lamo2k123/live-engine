@@ -1,4 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>asdasdasd</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600&amp;subset=latin,cyrillic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet/less" type="text/css" href="less/bootstrap.less">
+    <script src="js/less-1.7.4.min.js" type="text/javascript"></script>
+    <script>localStorage.clear();</script>
+</head>
 <body>
-11111111111111111111111111111
-1111111
+<header id="header"><a href="#" class="logo">Live-Engine</a>
+    <ul id="user-bar">
+        <li><a id="sign-in-button" href="#sign-in-button" title="Войти" class="icon-login">Войти</a></li>
+        <li><a id="sign-up-button" href="#sign-up-button" title="Зарегистрироваться">Зарегистрироваться</a></li>
+    </ul>
+    <form id="sign-up">
+        <label id="sign-up-email">
+            <input id="sign-up-email-input" name="email" type="email" placeholder="Email" tabindex="1">
+        </label>
+        <label id="sign-up-password">
+            <input id="sign-up-password-input" name="password" type="password" placeholder="Пароль" tabindex="2"><a id="sign-up-password-toggle" href="#toggle-password" class="icon-eye"></a>
+        </label>
+        <label id="sign-up-rules">Я прочитал (прочитала) <a href="#">правила</a> и согласен (согласна) с ними.
+            <input id="sign-up-rules-input" name="rules" type="checkbox" tabindex="3">
+        </label>
+        <div id="sign-up-buttons">
+            <input id="sign-up-buttons-submit" name="submit" type="submit" value="Зарегистрироваться" tabindex="4" class="disable">
+            <input id="sign-up-buttons-reset" name="reset" type="reset" value="Отмена" tabindex="5">
+        </div>
+    </form>
+    <form id="sign-in">
+        <label id="sign-in-email">
+            <input id="sign-in-email-input" name="email" type="email" placeholder="Email" tabindex="1">
+        </label>
+        <label id="sign-in-password">
+            <input id="sign-in-password-input" name="password" type="password" placeholder="Пароль" tabindex="2"><a id="sign-in-password-toggle" href="#toggle-password" class="icon-eye"></a>
+        </label>
+        <div id="sign-in-buttons">
+            <input id="sign-in-buttons-submit" name="submit" type="submit" value="Войти" tabindex="4" class="disable">
+            <input id="sign-in-buttons-reset" name="reset" type="reset" value="Отмена" tabindex="5">
+        </div>
+    </form>
+</header>
+<div id="banner"></div>
+<h1>Jade - node template engine</h1>
+<p>
+    Jade is a terse and simple
+    templating language with a
+    strong focus on performance
+    and powerful features.
+
+
+</p>
+<script data-main="js/app/bootstrap" src="js/lib/requirejs/requirejs-2.1.14.min.js"></script>
 </body>
+</html>
