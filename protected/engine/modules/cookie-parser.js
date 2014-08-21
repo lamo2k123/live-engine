@@ -19,6 +19,14 @@ CookieParse.prototype._use = function() {
 
         next();
     });
+
+    this.engine.io.use(function(socket, next) {
+        if(!socket.cookies) {
+            socket.cookies = socket.handshake.headers.cookie ? cookie.parse(socket.handshake.headers.cookie) : {};
+        }
+
+        next();
+    });
 };
 
 module.exports = CookieParse;
