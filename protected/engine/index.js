@@ -1,4 +1,5 @@
-var connect = require('connect'),
+var path    = require('path'),
+    connect = require('connect'),
     io      = require('socket.io');
 
 var Engine = function(app, io) {
@@ -7,6 +8,8 @@ var Engine = function(app, io) {
 	this.app = app;
     this.io = io;
 
+    this.set('#protected', path.join(__dirname, '..'));
+    this.set('#public', path.join(this.get('#protected'), '..', 'public'));
 
 	this.manager = {
 		configs	: require('./manager/configs.js')(this),
