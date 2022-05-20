@@ -4,12 +4,12 @@
     "version"       : "0.0.2",
     "private"       : true,
     "dependencies"  : {
-		"connect"		: "3.1.1",
+		"connect"		: "3.6.2",
 		"connect-render": "0.4.1",
 		"cookie"	    : "0.1.2",
         "socket.io"     : "1.0.6",
 
         "body-parser"       : "1.6.5",
-        "mongoose"          : "3.8.14"
+        "mongoose"          : "4.10.2"
     }
 }
